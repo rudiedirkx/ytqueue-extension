@@ -1,0 +1,86 @@
+body:not(.yt-queue-non-empty):not(.yt-queue-in-playlist) .ytp-next-button,
+.ytp-tooltip.ytp-preview.ytp-has-duration.ytp-bottom,
+.ytp-chrome-top-buttons > .ytp-watch-later-button {
+	display: none !important;
+}
+
+#yt-queue-open {
+	width: fit-content;
+	white-space: nowrap;
+	line-height: var(--yt-button-icon-size, 40px);
+	font-size: calc(var(--yt-button-icon-size, 40px) * 0.7);
+	text-align: center;
+	color: var(--yt-spec-icon-active-other, currentcolor);
+	background: transparent;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+}
+#yt-masthead-user #yt-queue-open {
+	line-height: 28px;
+	font-size: calc(28px * 0.7);
+}
+
+#yt-queue-list {
+	position: fixed;
+	z-index: 9999999999999;
+	right: 200px;
+	top: 45px;
+	width: 420px;
+	padding-bottom: 20px;
+	background-color: white;
+	box-shadow: 0 0 20px #999;
+	color: black;
+	box-sizing: border-box;
+	max-height: calc(100vh - 90px);
+	overflow-y: scroll;
+}
+#yt-queue-list:not(.open) {
+	display: none;
+}
+#yt-queue-list ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#yt-queue-list li {
+	display: flex;
+	padding: 2px 5px;
+}
+#yt-queue-list li + li {
+	border-top: solid 1px #aaa;
+}
+#yt-queue-list li.moving {
+	background-color: #eee;
+}
+#yt-queue-list li > * {
+	padding: 0 5px;
+	align-self: center;
+}
+#yt-queue-list li > a.video.title {
+	margin-right: auto;
+}
+#yt-queue-list img {
+	display: block;
+	max-width: 100px;
+	max-height: 70px;
+}
+#yt-queue-list .duration {
+	font-family: monospace;
+	font-weight: bold;
+}
+
+#yt-queue-add {
+    float: right;
+    text-align: center !important;
+    font-weight: bold;
+}
+
+#yt-queue-add.yt-queue-exists {
+	background-color: green !important;
+}
+.yt-queue-exists [aria-label="Watch later"],
+.yt-queue-exists yt-icon.style-scope.ytd-thumbnail-overlay-toggle-button-renderer {
+	background-color: green !important;
+	border-color: green !important;
+}
