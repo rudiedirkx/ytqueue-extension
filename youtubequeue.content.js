@@ -52,7 +52,7 @@ function evalCurrentVid() {
 		currentVid = newCurVid;
 
 		removeCurrentVideo();
-		addPlaylistClass();
+		setTimeout(addPlaylistClass, 100);
 		setQueueSize();
 	}
 }
@@ -65,7 +65,8 @@ function removeCurrentVideo() {
 }
 
 function addPlaylistClass() {
-	document.body.classList.toggle('yt-queue-in-playlist', document.querySelector('ytd-playlist-panel-renderer > *') != null);
+	const playlistPanel = document.querySelector('ytd-playlist-panel-renderer > *');
+	document.body.classList.toggle('yt-queue-in-playlist', playlistPanel != null && playlistPanel.offsetHeight > 0);
 }
 
 function currentVideoIsQueued() {
