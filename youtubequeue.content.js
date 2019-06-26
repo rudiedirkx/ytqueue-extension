@@ -52,7 +52,8 @@ function evalCurrentVid() {
 		currentVid = newCurVid;
 
 		removeCurrentVideo();
-		setTimeout(addPlaylistClass, 100);
+		setTimeout(addPlaylistClass, 200);
+		setTimeout(addPlaylistClass, 1200);
 		setQueueSize();
 	}
 }
