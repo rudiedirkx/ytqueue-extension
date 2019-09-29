@@ -7,7 +7,7 @@
 		"all_frames": true,
 		"js": [ "youtubequeue.content.js" ],
 		"css": [ "youtubequeue.content.css" ],
-		"matches": [ "*://youtube.com/*", "*://www.youtube.com/*" ],
+		"matches": [ "https://www.youtube.com/*" ],
 		"run_at": "document_idle"
 	} ],
 
