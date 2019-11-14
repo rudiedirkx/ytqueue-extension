@@ -282,7 +282,7 @@ function addQueueAddButton($buttons) {
 function addVideoToQueue($video) {
 	const $link = $video.querySelector('a.yt-simple-endpoint.ytd-compact-video-renderer, a#video-title');
 	const $title = $video.querySelector('#video-title');
-	const $duration = $video.querySelector('.ytd-thumbnail-overlay-time-status-renderer');
+	const $duration = $video.querySelector('ytd-thumbnail-overlay-time-status-renderer, span.ytd-thumbnail-overlay-time-status-renderer');
 	addQueue(getVid($link.href), $title.innerText.trim(), $duration ? $duration.innerText.trim() : '');
 }
 
