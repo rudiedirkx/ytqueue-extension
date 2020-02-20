@@ -1,6 +1,6 @@
 {
-	"name": "Video queue",
-	"description": "Queue video's of that one site for an instant playlist",
+	"name": "YouTube™ queue",
+	"description": "Queue YouTube™ video's for an instant playlist",
 	"version": "1.14",
 
 	"content_scripts": [ {
