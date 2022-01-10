@@ -274,7 +274,7 @@ function addQueueAddButton($buttons) {
 			removeQueue(vid);
 		}
 		else {
-			const title = document.querySelector('h1.title').innerText.trim();
+			const title = document.querySelector('#container h1.title').innerText.trim();
 			const duration = document.querySelector('.ytp-time-duration').innerText.trim();
 			addQueue(vid, title, duration);
 		}
@@ -357,7 +357,7 @@ tick(function() {
 
 // ADD TO QUEUE listener
 document.addEventListener('click', function(e) {
-	const $el = e.target.closest('[aria-label="Watch later"]');
+	const $el = e.target.closest('[aria-label="Watch later"], [aria-label="Watch Later"]');
 	if ( $el ) {
 		e.preventDefault();
 		e.stopPropagation();
