@@ -66,8 +66,8 @@ function removeCurrentVideo() {
 }
 
 function addPlaylistClass() {
-	const playlistPanel = document.querySelector('ytd-playlist-panel-renderer > *');
-	document.body.classList.toggle('yt-queue-in-playlist', playlistPanel != null && playlistPanel.offsetHeight > 0);
+	const playlistPanels = [...document.querySelectorAll('ytd-playlist-panel-renderer > *')];
+	document.body.classList.toggle('yt-queue-in-playlist', playlistPanels.filter(el => el.offsetHeight > 0).length > 0);
 }
 
 function currentVideoIsQueued() {
