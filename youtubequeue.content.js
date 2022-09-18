@@ -5,7 +5,8 @@ const VIDEO_ELEMENT_SELECTOR = 'ytd-video-renderer, ytd-compact-video-renderer, 
 
 var stopNav = true;
 var addedGlobalListeners = false;
-var nextedVids = [];
+var lastNextedTime = 0;
+var lastNextedVid = null;
 var currentVid = null;
 
 function tick(callback) {
@@ -120,15 +121,14 @@ function itemExists(vid) {
 function goToNext(vid) {
 	stopNav = false;
 	setTimeout(() => stopNav = true, 1000);
-	execScript(`
-		(function() {
-			try { if (window.ytQueueNavigateTo('${vid}') === true) return; } catch (ex) {}
-			try { document.querySelector('#page-manager > ytd-watch').navigateToVideo_('${vid}'); return; } catch (ex) {}
-			try { document.querySelector('ytd-watch-flexy').navigateToVideo_('${vid}'); return; } catch (ex) {}
-			try { document.querySelector('#nav').navigate({"clickTrackingParams":"x","commandMetadata":{"webCommandMetadata":{"url":"/watch?v=${vid}","webPageType":"WEB_PAGE_TYPE_WATCH","rootVe":3832}},"watchEndpoint":{"videoId":"${vid}","nofollow":true}}); return; } catch (ex) {}
-			location.href = 'https://www.youtube.com/watch?v=${vid}';
-		})()
-	`);
+
+	const s = document.createElement('script');
+	const u = chrome.runtime.getURL(`youtubequeue.goToNext.js?vid=${vid}`);
+	s.src = u;
+	s.onload = function() {
+		this.remove();
+	};
+	(document.head || document.documentElement).appendChild(s);
 }
 
 function addQueueListWindow() {
@@ -315,15 +315,14 @@ console.log('[YTQ] incoming message', e.data);
 			console.log('[YTQ] next', next);
 			if ( next ) {
 				vid = next.vid;
-				if ( !nextedVids.includes(vid) ) {
-					console.log('[YTQ] next unnexted (' + vid + ' not in [' + nextedVids + '])');
-					nextedVids.push(vid);
-					nextedVids = nextedVids.slice(-2);
+				if ( lastNextedVid != vid ) {
+					console.log('[YTQ] now nexting (' + vid + ' is not "' + lastNextedVid + '")');
+					lastNextedVid = vid;
 
 					goToNext(next.vid);
 				}
 				else {
-					console.log('[YTQ] next NEXTED (' + vid + ')');
+					console.log('[YTQ] already nexted (' + vid + ')');
 				}
 			}
 		}
@@ -374,8 +373,11 @@ document.addEventListener('click', function(e) {
 tick(function() {
 	var endElement = document.querySelector('.ytp-endscreen-content a');
 	if ( endElement && endElement.offsetHeight ) {
-		console.log('[YTQ] video endscreen');
-		CHANNEL_OUT.postMessage({command: 'next', from: getCurrentVid()});
+		if ( lastNextedTime + 1000 < Date.now() ) {
+			lastNextedTime = Date.now();
+			console.log('[YTQ] video endscreen');
+			CHANNEL_OUT.postMessage({command: 'next', from: getCurrentVid()});
+		}
 	}
 });
 

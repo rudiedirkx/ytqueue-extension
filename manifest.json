@@ -12,6 +12,12 @@
 			"run_at": "document_idle"
 		}
 	],
+	"web_accessible_resources": [
+		{
+			"resources": ["youtubequeue.goToNext.js"],
+			"matches": ["https://www.youtube.com/*", "https://www.youtube.com/*"]
+		}
+	],
 
 	"icons": {
 		"128": "images/icon128.png"
