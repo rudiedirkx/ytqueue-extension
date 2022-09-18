@@ -3,17 +3,18 @@
 	"description": "Queue YouTube™ video's for an instant playlist",
 	"version": "1.17",
 
-	"content_scripts": [ {
-		"all_frames": true,
-		"js": [ "youtubequeue.content.js" ],
-		"css": [ "youtubequeue.content.css" ],
-		"matches": [ "https://www.youtube.com/*" ],
-		"run_at": "document_idle"
-	} ],
+	"content_scripts": [
+		{
+			"all_frames": true,
+			"js": ["youtubequeue.content.js"],
+			"css": ["youtubequeue.content.css"],
+			"matches": ["https://www.youtube.com/*", "https://www.youtube.com/*"],
+			"run_at": "document_idle"
+		}
+	],
 
 	"icons": {
-		"128": "images/icon128.png",
-		"48": "images/icon48.png"
+		"128": "images/icon128.png"
 	},
-	"manifest_version": 2
+	"manifest_version": 3
 }
