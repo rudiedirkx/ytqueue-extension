@@ -137,6 +137,12 @@ function addQueueListWindow() {
 
 	div = document.createElement('div');
 	div.id = 'yt-queue-list';
+	div.innerHTML = `
+	<div class="settings">
+		<label><input type="checkbox" id="yt-queue-loop" /> Loop queue</label>
+	</div>
+	<ul></ul>
+	`;
 	document.body.appendChild(div);
 
 	div.addEventListener('click', function(e) {
@@ -211,9 +217,7 @@ function refreshQueueListWindow() {
 	const queue = getQueue();
 
 	const htmls = queue.map(makeQueueListItem);
-	div.innerHTML = '<ul>' + htmls.join('') + '</ul>';
-
-	// @todo Sorting
+	div.querySelector('ul').innerHTML = htmls.join('');
 }
 
 function toggleQueueListWindow(show) {
@@ -319,6 +323,12 @@ console.log('[YTQ] incoming message', e.data);
 					console.log('[YTQ] now nexting (' + vid + ' is not "' + lastNextedVid + '")');
 					lastNextedVid = vid;
 
+					if ( document.querySelector('#yt-queue-loop').checked ) {
+						const btn = document.querySelector('#yt-queue-add');
+						if ( !btn.classList.contains('yt-queue-exists') ) {
+							btn.click();
+						}
+					}
 					goToNext(next.vid);
 				}
 				else {

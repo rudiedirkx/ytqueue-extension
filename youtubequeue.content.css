@@ -22,6 +22,8 @@ body:not(.yt-queue-non-empty):not(.yt-queue-in-playlist) .ytp-next-button,
 }
 
 #yt-queue-list {
+	--paddings: 5px;
+
 	position: fixed;
 	z-index: 9999999999999;
 	right: 200px;
@@ -38,6 +40,13 @@ body:not(.yt-queue-non-empty):not(.yt-queue-in-playlist) .ytp-next-button,
 #yt-queue-list:not(.open) {
 	display: none;
 }
+
+#yt-queue-list .settings {
+	padding: var(--paddings);
+	border-bottom: solid 1px #aaa;
+	margin-bottom: var(--paddings);
+}
+
 #yt-queue-list ul {
 	margin: 0;
 	padding: 0;
@@ -45,7 +54,7 @@ body:not(.yt-queue-non-empty):not(.yt-queue-in-playlist) .ytp-next-button,
 }
 #yt-queue-list li {
 	display: flex;
-	padding: 2px 5px;
+	padding: 2px var(--paddings);
 }
 #yt-queue-list li + li {
 	border-top: solid 1px #aaa;
@@ -54,7 +63,7 @@ body:not(.yt-queue-non-empty):not(.yt-queue-in-playlist) .ytp-next-button,
 	background-color: #eee;
 }
 #yt-queue-list li > * {
-	padding: 0 5px;
+	padding: 0 var(--paddings);
 	align-self: center;
 }
 #yt-queue-list li > a.video.title {
