@@ -230,7 +230,7 @@ function addGlobalListeners() {
 	addedGlobalListeners = true;
 
 	document.addEventListener('click', function(e) {
-		if ( !e.target.closest('#yt-queue-open') && !e.path.includes(addQueueListWindow()) ) {
+		if ( !e.target.closest('#yt-queue-open') && !e.composedPath().includes(addQueueListWindow()) ) {
 			toggleQueueListWindow(false);
 		}
 	});
@@ -356,7 +356,7 @@ tick(function() {
 tick(function() {
 	const $button = document.querySelector('#yt-queue-add');
 	if ( !$button ) {
-		const $buttons = document.querySelector('.html5-video-player .ytp-chrome-controls');
+		const $buttons = document.querySelector('.ytp-right-controls') || document.querySelector('.ytp-chrome-controls');
 		if ( $buttons ) {
 			addQueueAddButton($buttons);
 			setTimeout(evalCurrentVid, 100);

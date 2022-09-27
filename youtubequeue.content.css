@@ -93,3 +93,11 @@ body:not(.yt-queue-non-empty):not(.yt-queue-in-playlist) .ytp-next-button,
 	background-color: green !important;
 	border-color: green !important;
 }
+
+html ytd-thumbnail-overlay-toggle-button-renderer {
+	right: auto;
+	left: 0px;
+}
+[aria-label="Add to queue"] {
+	display: none !important;
+}
