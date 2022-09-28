@@ -10,22 +10,20 @@ var lastNextedVid = null;
 var currentVid = null;
 
 function tick(callback) {
-	var state, ticker, control, t1s, t2s;
+	var state, ticker, control, t1s;
 	state = {active: true, iteration: 0};
-	ticker = function(extra) {
+	ticker = function(manual) {
 		state.iteration++;
 		callback(control);
-		state.active && extra !== true && requestAnimationFrame(ticker);
+		state.active && manual !== true && requestAnimationFrame(ticker);
 	};
 	requestAnimationFrame(ticker);
-	t1s = setTimeout(ticker, 1000, true);
-	t2s = setTimeout(ticker, 2000, true);
+	t1s = setInterval(ticker, 1000, true);
 	control = {
 		state: state,
 		stop: function() {
 			state.active = false;
 			clearTimeout(t1s);
-			clearTimeout(t2s);
 		}
 	};
 	return control;
@@ -47,9 +45,9 @@ function getCurrentVid() {
 
 function evalCurrentVid() {
 	const newCurVid = getCurrentVid();
-	// console.log('[YTQ] vid ', currentVid, 'vs', newCurVid);
+	// console.debug('[YTQ] vid ', currentVid, 'vs', newCurVid);
 	if ( currentVid != newCurVid ) {
-		console.log('[YTQ] NEW VID: ' + newCurVid + ' (was ' + currentVid + ')');
+		console.debug('[YTQ] NEW VID: ' + newCurVid + ' (was ' + currentVid + ')');
 		currentVid = newCurVid;
 
 		removeCurrentVideo();
@@ -299,7 +297,7 @@ function removeHilites() {
 // Listen for tab changes or NEXT
 CHANNEL_IN.addEventListener('message', function(e) {
 	if ( e.data.command == 'size' ) {
-console.log('[YTQ] incoming message', e.data);
+console.debug('[YTQ] incoming message', e.data);
 		removeHilites();
 		setQueueSize();
 		refreshQueueListWindow();
@@ -307,20 +305,20 @@ console.log('[YTQ] incoming message', e.data);
 	}
 
 	if ( e.data.command == 'next' ) {
-console.log('[YTQ] incoming message', e.data);
+console.debug('[YTQ] incoming message', e.data);
 		var vid = getCurrentVid();
 		if ( vid && e.data.from == vid ) {
 			if ( document.querySelector('.ad-interrupting') ) {
-				console.log('[YTQ] NO next, because ad');
+				console.debug('[YTQ] NO next, because ad');
 				return;
 			}
 
 			const next = getQueueNext();
-			console.log('[YTQ] next', next);
+			console.debug('[YTQ] next', next);
 			if ( next ) {
 				vid = next.vid;
 				if ( lastNextedVid != vid ) {
-					console.log('[YTQ] now nexting (' + vid + ' is not "' + lastNextedVid + '")');
+					console.debug('[YTQ] now nexting (' + vid + ' is not "' + lastNextedVid + '")');
 					lastNextedVid = vid;
 
 					if ( document.querySelector('#yt-queue-loop').checked ) {
@@ -332,7 +330,7 @@ console.log('[YTQ] incoming message', e.data);
 					goToNext(next.vid);
 				}
 				else {
-					console.log('[YTQ] already nexted (' + vid + ')');
+					console.debug('[YTQ] already nexted (' + vid + ')');
 				}
 			}
 		}
@@ -385,7 +383,7 @@ tick(function() {
 	if ( endElement && endElement.offsetHeight ) {
 		if ( lastNextedTime + 1000 < Date.now() ) {
 			lastNextedTime = Date.now();
-			console.log('[YTQ] video endscreen');
+			console.debug('[YTQ] video endscreen');
 			CHANNEL_OUT.postMessage({command: 'next', from: getCurrentVid()});
 		}
 	}
@@ -393,7 +391,7 @@ tick(function() {
 
 // NEW VIDEO listener
 document.addEventListener('loadedmetadata', function(e) {
-	console.log('[YTQ] loadedmetadata');
+	console.debug('[YTQ] loadedmetadata');
 	setTimeout(evalCurrentVid, 100);
 }, true);
 

@@ -7,32 +7,49 @@
 	} catch (ex) {}
 
 	try {
-		document.querySelector('#page-manager > ytd-watch').navigateToVideo_(vid);
-		return;
-	} catch (ex) {}
+		function searchForValueInObject(root, value, replacer) {
+			const paths = [];
+			const searched = [root];
 
-	try {
-		document.querySelector('ytd-watch-flexy').navigateToVideo_(vid);
-		return;
-	} catch (ex) {}
+			const matcher = typeof value == 'function' ? value : el => el === value;
 
-	try {
-		document.querySelector('#nav').navigate({
-			"clickTrackingParams": "x",
-			"commandMetadata": {
-				"webCommandMetadata": {
-					"url": `/watch?v=${vid}`,
-					"webPageType":"WEB_PAGE_TYPE_WATCH",
-					"rootVe":3832
+			const iterable = (val) => {
+				return val instanceof Object && !(val instanceof Node);
+			};
+			const search = (obj, path = []) => {
+				for (let k in obj) {
+					if (matcher(obj[k], k)) {
+						paths.push(path.concat(k));
+						if (replacer) {
+							obj[k] = replacer(obj[k]);
+						}
+					}
+					else if (iterable(obj[k])) {
+						if (!searched.includes(obj[k])) {
+							searched.push(obj[k]);
+							search(obj[k], path.concat(k));
+						}
+					}
 				}
-			},
-			"watchEndpoint": {
-				"videoId": vid,
-				"nofollow": true
-			}
-		});
+			};
+
+			search(root);
+			return paths;
+		}
+
+		const next = document.querySelectorAll('ytd-compact-video-renderer')[2];
+		const curNextId = next.__data.data.videoId;
+		const matches = searchForValueInObject(next.__data, v => typeof v == 'string' && v.includes(curNextId), v => v.replaceAll(curNextId, vid));
+
+		if (next.__data.data.videoId !== vid) {
+			throw new Error('`searchForValueInObject` replacement of `__data.data.videoId` failed!?');
+		}
+
+		next.querySelector('a').click();
 		return;
-	} catch (ex) {}
+	} catch (ex) {
+		console.warn('[YTQ] goToNext() failed', ex);
+	}
 
 	location.href = `https://www.youtube.com/watch?v=${vid}`;
 })();
