@@ -394,7 +394,7 @@ document.addEventListener('click', function(e) {
 tick(function() {
 	var endElement = document.querySelector('.ytp-endscreen-content a');
 	var autoplayElement = document.querySelector('.ytp-autonav-endscreen-countdown-overlay');
-	if ( (endElement && endElement.offsetHeight) || (autoplayElement && autoplayElement.offsetHeight) ) {
+	if ( !document.hidden && (endElement?.offsetHeight || autoplayElement?.offsetHeight) ) {
 		if ( lastNextedTime + 1000 < Date.now() ) {
 			lastNextedTime = Date.now();
 			console.debug('[YTQ] video endscreen');
