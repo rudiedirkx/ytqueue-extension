@@ -1,7 +1,7 @@
 {
 	"name": "YouTube™ queue",
 	"description": "Queue YouTube™ video's for an instant playlist",
-	"version": "1.19",
+	"version": "1.20",
 
 	"content_scripts": [
 		{
