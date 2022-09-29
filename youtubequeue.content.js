@@ -84,9 +84,22 @@ function setQueue(queue) {
 	CHANNEL_OUT.postMessage({command: 'size'});
 }
 
+function getQueueTotalMins() {
+	const items = getQueue();
+	return Math.round(items.map(x => {
+		return (x.duration || '0:0').split(':').map(n => parseFloat(n));
+	}).map(([m, s]) => {
+		return m*60 + s;
+	}).reduce((a, b) => a + b, 0) / 60) + ' mins';
+}
+
 function setQueueSize() {
 	const size = getQueue().length;
-	document.querySelectorAll('.yt-queue-size').forEach((el) => el.textContent = size);
+	const mins = getQueueTotalMins();
+	document.querySelectorAll('.yt-queue-size').forEach(el => {
+		el.textContent = size;
+		el.parentNode.title = mins;
+	});
 	document.body.classList.toggle('yt-queue-non-empty', size > 0);
 }
 
