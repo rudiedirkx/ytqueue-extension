@@ -277,7 +277,7 @@ function addQueueAddButton($buttons) {
 	$btn.id = 'yt-queue-add';
 	$btn.className = 'ytp-button';
 	$btn.innerHTML = 'Q <span class="yt-queue-size"></span>';
-	$buttons.appendChild($btn);
+	$buttons.insertBefore($btn, $buttons.firstElementChild);
 
 	setTimeout(setQueueSize);
 
