@@ -1,7 +1,7 @@
 const CHANNEL_OUT = new BroadcastChannel('youtubequeue');
 const CHANNEL_IN = new BroadcastChannel('youtubequeue');
 
-const VIDEO_ELEMENT_SELECTOR = 'ytd-video-renderer, ytd-compact-video-renderer, ytd-item-section-renderer, ytd-grid-video-renderer';
+const VIDEO_ELEMENT_SELECTOR = 'ytd-video-renderer, ytd-compact-video-renderer, ytd-item-section-renderer, ytd-grid-video-renderer, ytd-rich-item-renderer';
 
 var stopNav = true;
 var addedGlobalListeners = false;
@@ -297,7 +297,7 @@ function addQueueAddButton($buttons) {
 }
 
 function addVideoToQueue($video) {
-	const $link = $video.querySelector('a.yt-simple-endpoint.ytd-compact-video-renderer, a#video-title');
+	const $link = $video.querySelector('a.yt-simple-endpoint.ytd-compact-video-renderer, a#video-title, a#thumbnail');
 	const $title = $video.querySelector('#video-title');
 	const $duration = $video.querySelector('ytd-thumbnail-overlay-time-status-renderer, span.ytd-thumbnail-overlay-time-status-renderer');
 	addQueue(getVid($link.href), $title.innerText.trim(), $duration ? $duration.innerText.trim() : '');
