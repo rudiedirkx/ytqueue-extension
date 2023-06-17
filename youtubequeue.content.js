@@ -36,7 +36,7 @@ function execScript( script ) {
 }
 
 function getVid(uri) {
-	return (uri.match(/[&?]v=([^&]+)/) || '')[1];
+	return (uri.match(/[&?]v=([^&]+)/) || uri.match(/\/shorts\/([^\/\?\#]+)/) || '')[1];
 }
 
 function getCurrentVid() {
@@ -438,10 +438,12 @@ tick(function() {
 		}
 
 		// Links on page
-		const links = document.querySelectorAll('a[href*="v=' + vid + '"]');
+		const links = document.querySelectorAll(`a[href*="v=${vid}"], a[href*="/shorts/${vid}"]`);
 		links.forEach(el => {
-			const box = el.closest(VIDEO_ELEMENT_SELECTOR);
-			box && box.classList.add('yt-queue-exists');
+			if (getVid(el.href) == vid) {
+				const box = el.closest(VIDEO_ELEMENT_SELECTOR);
+				box && box.classList.add('yt-queue-exists');
+			}
 		})
 	});
 });
