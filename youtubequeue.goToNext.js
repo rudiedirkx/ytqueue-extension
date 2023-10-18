@@ -14,20 +14,22 @@
 			const matcher = typeof value == 'function' ? value : el => el === value;
 
 			const iterable = (val) => {
-				return val instanceof Object && !(val instanceof Node);
+				return val instanceof Object && typeof val != 'function' && !(val instanceof Node);
 			};
 			const search = (obj, path = []) => {
 				for (let k in obj) {
-					if (matcher(obj[k], k)) {
-						paths.push(path.concat(k));
-						if (replacer) {
-							obj[k] = replacer(obj[k]);
+					if (Object.hasOwn(obj, k)) {
+						if (matcher(obj[k], k)) {
+							paths.push(path.concat(k));
+							if (replacer) {
+								obj[k] = replacer(obj[k]);
+							}
 						}
-					}
-					else if (iterable(obj[k])) {
-						if (!searched.includes(obj[k])) {
-							searched.push(obj[k]);
-							search(obj[k], path.concat(k));
+						else if (iterable(obj[k])) {
+							if (!searched.includes(obj[k])) {
+								searched.push(obj[k]);
+								search(obj[k], path.concat(k));
+							}
 						}
 					}
 				}
@@ -38,11 +40,12 @@
 		}
 
 		const next = document.querySelectorAll('ytd-compact-video-renderer')[2];
-		const curNextId = next.__data.data.videoId;
-		const matches = searchForValueInObject(next.__data, v => typeof v == 'string' && v.includes(curNextId), v => v.replaceAll(curNextId, vid));
+		const curNextId = next.data.videoId;
+		const matches = searchForValueInObject(next.data, v => typeof v == 'string' && v.includes(curNextId), v => v.replaceAll(curNextId, vid));
+// console.log(matches, next.data);
 
-		if (next.__data.data.videoId !== vid) {
-			throw new Error('`searchForValueInObject` replacement of `__data.data.videoId` failed!?');
+		if (next.data.videoId !== vid) {
+			throw new Error('`searchForValueInObject` replacement of `data.videoId` failed!?');
 		}
 
 		next.querySelector('a').click();
@@ -51,5 +54,6 @@
 		console.warn('[YTQ] goToNext() failed', ex);
 	}
 
+	// debugger;
 	location.href = `https://www.youtube.com/watch?v=${vid}`;
 })();
