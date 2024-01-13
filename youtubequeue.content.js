@@ -151,6 +151,7 @@ function addQueueListWindow() {
 	div.innerHTML = `
 	<div class="settings">
 		<label><input type="checkbox" id="yt-queue-loop" /> Loop queue</label>
+		<label><input type="checkbox" id="yt-queue-bg-next" /> Background next</label>
 	</div>
 	<ul></ul>
 	`;
@@ -393,9 +394,10 @@ document.addEventListener('click', function(e) {
 
 // END OF VIDEO listener
 tick(function() {
-	var endElement = document.querySelector('.ytp-endscreen-content a');
-	var autoplayElement = document.querySelector('.ytp-autonav-endscreen-countdown-overlay');
-	if ( !document.hidden && (endElement?.offsetHeight || autoplayElement?.offsetHeight) ) {
+	const endElement = document.querySelector('.ytp-endscreen-content a');
+	const autoplayElement = document.querySelector('.ytp-autonav-endscreen-countdown-overlay');
+	const focus = document.querySelector('#yt-queue-bg-next').checked || !document.hidden;
+	if ( focus && (endElement?.offsetHeight || autoplayElement?.offsetHeight) ) {
 		if ( lastNextedTime + 1000 < Date.now() ) {
 			lastNextedTime = Date.now();
 			console.debug('[YTQ] video endscreen');
