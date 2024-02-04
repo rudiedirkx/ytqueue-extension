@@ -396,7 +396,7 @@ document.addEventListener('click', function(e) {
 tick(function() {
 	const endElement = document.querySelector('.ytp-endscreen-content a');
 	const autoplayElement = document.querySelector('.ytp-autonav-endscreen-countdown-overlay');
-	const focus = document.querySelector('#yt-queue-bg-next').checked || !document.hidden;
+	const focus = document.querySelector('#yt-queue-bg-next')?.checked || !document.hidden;
 	if ( focus && (endElement?.offsetHeight || autoplayElement?.offsetHeight) ) {
 		if ( lastNextedTime + 1000 < Date.now() ) {
 			lastNextedTime = Date.now();
