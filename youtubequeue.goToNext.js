@@ -39,13 +39,15 @@
 			return paths;
 		}
 
-		const next = document.querySelectorAll('ytd-compact-video-renderer')[2];
-		const curNextId = next.data.videoId;
+		const nexts = document.querySelectorAll('ytd-watch-next-secondary-results-renderer .yt-lockup-view-model-wiz');
+// console.log(nexts);
+		const next = nexts[2];
+		const curNextId = next.data.contentId;
 		const matches = searchForValueInObject(next.data, v => typeof v == 'string' && v.includes(curNextId), v => v.replaceAll(curNextId, vid));
 // console.log(matches, next.data);
 
-		if (next.data.videoId !== vid) {
-			throw new Error('`searchForValueInObject` replacement of `data.videoId` failed!?');
+		if (next.data.contentId !== vid) {
+			throw new Error('`searchForValueInObject` replacement of `data.contentId` failed!?');
 		}
 
 		next.querySelector('a').click();
