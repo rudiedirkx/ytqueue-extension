@@ -9,7 +9,7 @@
 			"js": ["youtubequeue.content.js"],
 			"css": ["youtubequeue.content.css"],
 			"matches": ["https://www.youtube.com/*", "https://www.youtube.com/*"],
-			"run_at": "document_idle"
+			"run_at": "document_start"
 		}
 	],
 	"web_accessible_resources": [

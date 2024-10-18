@@ -9,6 +9,15 @@ var lastNextedTime = 0;
 var lastNextedVid = null;
 var currentVid = null;
 
+// console.log(document.cookie);
+if (document.cookie && document.cookie.match(/PREF=/)) {
+	const m = document.cookie.match(/\bPREF=[^;]+/);
+	if (m && !m[0].includes('&f7=1')) {
+		document.cookie = m[0] + '&f7=1;domain=.youtube.com;path=/;secure';
+		// console.log(document.cookie);
+	}
+}
+
 function tick(callback) {
 	var state, ticker, control, t1s;
 	state = {active: true, iteration: 0};
