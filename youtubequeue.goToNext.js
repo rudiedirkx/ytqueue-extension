@@ -39,15 +39,15 @@
 			return paths;
 		}
 
-		const nexts = document.querySelectorAll('ytd-watch-next-secondary-results-renderer .yt-lockup-view-model-wiz');
+		const nexts = document.querySelectorAll('ytd-watch-next-secondary-results-renderer ytd-compact-video-renderer, ytd-watch-next-secondary-results-renderer .yt-lockup-view-model-wiz');
 // console.log(nexts);
 		const next = nexts[2];
-		const curNextId = next.data.contentId;
+		const curNextId = next.data.videoId || next.data.contentId;
 		const matches = searchForValueInObject(next.data, v => typeof v == 'string' && v.includes(curNextId), v => v.replaceAll(curNextId, vid));
 // console.log(matches, next.data);
 
-		if (next.data.contentId !== vid) {
-			throw new Error('`searchForValueInObject` replacement of `data.contentId` failed!?');
+		if ((next.data.videoId || next.data.contentId) !== vid) {
+			throw new Error('`searchForValueInObject` replacement of `data.videoId` or `data.contentId` failed!?');
 		}
 
 		next.querySelector('a').click();
@@ -56,6 +56,6 @@
 		console.warn('[YTQ] goToNext() failed', ex);
 	}
 
-	// debugger;
+	debugger;
 	location.href = `https://www.youtube.com/watch?v=${vid}`;
 })();
