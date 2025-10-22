@@ -403,7 +403,7 @@ document.addEventListener('click', function(e) {
 
 // END OF VIDEO listener
 tick(function() {
-	const endElement = document.querySelector('.ytp-endscreen-content a');
+	const endElement = document.querySelector('.ytp-endscreen-content a, .html5-video-player.ended-mode');
 	const autoplayElement = document.querySelector('.ytp-autonav-endscreen-countdown-overlay');
 	const focus = document.querySelector('#yt-queue-bg-next')?.checked || !document.hidden;
 	if ( focus && (endElement?.offsetHeight || autoplayElement?.offsetHeight) ) {
