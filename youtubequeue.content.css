@@ -84,6 +84,7 @@ body:not(.yt-queue-non-empty):not(.yt-queue-in-playlist) .ytp-next-button,
 	float: left;
 	text-align: center !important;
 	font-weight: bold;
+	line-height: 100%;
 }
 #yt-queue-add.yt-queue-exists {
 	background-color: green !important;
