@@ -90,6 +90,7 @@ body:not(.yt-queue-non-empty):not(.yt-queue-in-playlist) .ytp-next-button,
 	background-color: green !important;
 }
 .yt-queue-exists [aria-label="Watch later"],
+.yt-queue-exists [aria-label="Watch Later"],
 .yt-queue-exists yt-icon.style-scope.ytd-thumbnail-overlay-toggle-button-renderer {
 	background-color: green !important;
 	border-color: green !important;

@@ -2,6 +2,8 @@ const CHANNEL_OUT = new BroadcastChannel('youtubequeue');
 const CHANNEL_IN = new BroadcastChannel('youtubequeue');
 
 const VIDEO_ELEMENT_SELECTOR = 'ytd-video-renderer, ytd-compact-video-renderer, ytd-item-section-renderer, ytd-grid-video-renderer, ytd-rich-item-renderer, ytd-video-preview';
+const VIDEO_TITLE_SELECTOR = '#video-title, h3.yt-lockup-metadata-view-model__heading-reset';
+const VIDEO_DURATION_SELECTOR = 'ytd-thumbnail-overlay-time-status-renderer, span.ytd-thumbnail-overlay-time-status-renderer, .ytp-time-duration, yt-thumbnail-overlay-badge-view-model.yt-thumbnail-overlay-badge-view-model.yt-thumbnail-overlay-badge-view-model--bottom-end.yt-thumbnail-overlay-badge-view-model--large';
 
 var stopNav = true;
 var addedGlobalListeners = false;
@@ -309,8 +311,8 @@ function addQueueAddButton($buttons) {
 function addVideoToQueue($video) {
 	const links = Array.from($video.querySelectorAll('a'));
 	const vid = links.map(a => getVid(a.href)).find(vid => vid);
-	const $title = $video.querySelector('#video-title');
-	const $duration = $video.querySelector('ytd-thumbnail-overlay-time-status-renderer, span.ytd-thumbnail-overlay-time-status-renderer, .ytp-time-duration');
+	const $title = $video.querySelector(VIDEO_TITLE_SELECTOR);
+	const $duration = $video.querySelector(VIDEO_DURATION_SELECTOR);
 	addQueue(vid, $title.innerText.trim(), $duration ? $duration.innerText.trim() : '');
 }
 
