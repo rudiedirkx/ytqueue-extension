@@ -3,7 +3,7 @@ const CHANNEL_IN = new BroadcastChannel('youtubequeue');
 
 const VIDEO_ELEMENT_SELECTOR = 'ytd-video-renderer, ytd-compact-video-renderer, ytd-item-section-renderer, ytd-grid-video-renderer, ytd-rich-item-renderer, ytd-video-preview';
 const VIDEO_TITLE_SELECTOR = '#video-title, h3.yt-lockup-metadata-view-model__heading-reset';
-const VIDEO_DURATION_SELECTOR = 'ytd-thumbnail-overlay-time-status-renderer, span.ytd-thumbnail-overlay-time-status-renderer, .ytp-time-duration, yt-thumbnail-overlay-badge-view-model.yt-thumbnail-overlay-badge-view-model.yt-thumbnail-overlay-badge-view-model--bottom-end.yt-thumbnail-overlay-badge-view-model--large';
+const VIDEO_DURATION_SELECTOR = 'ytd-thumbnail-overlay-time-status-renderer, span.ytd-thumbnail-overlay-time-status-renderer, .ytp-time-duration, yt-thumbnail-overlay-badge-view-model.yt-thumbnail-overlay-badge-view-model.yt-thumbnail-overlay-badge-view-model--bottom-end.yt-thumbnail-overlay-badge-view-model--large, .yt-badge-shape.yt-badge-shape--thumbnail-default.yt-badge-shape--thumbnail-badge.yt-badge-shape--typography > .yt-badge-shape__text';
 
 var stopNav = true;
 var addedGlobalListeners = false;
