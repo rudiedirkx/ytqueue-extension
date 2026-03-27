@@ -4,7 +4,29 @@
 
 	try {
 		if (window.ytQueueNavigateTo(vid) === true) return;
-	} catch (ex) {}
+	}
+	catch (ex) {}
+
+	try {
+		document.querySelector('ytd-app').fire('yt-navigate', {
+			endpoint: {
+				watchEndpoint: {
+					videoId: vid
+				},
+				commandMetadata: {
+					webCommandMetadata: {
+						url: `/watch?v=${vid}`,
+						webPageType: 'WEB_PAGE_TYPE_WATCH',
+						rootVe: 3832
+					}
+				}
+			}
+		});
+		return;
+	}
+	catch (ex) {
+		console.warn('[YTQ] goToNext 2026 failed', ex);
+	}
 
 	try {
 		function searchForValueInObject(root, value, replacer) {
@@ -52,8 +74,9 @@
 
 		next.querySelector('a').click();
 		return;
-	} catch (ex) {
-		console.warn('[YTQ] goToNext() failed', ex);
+	}
+	catch (ex) {
+		console.warn('[YTQ] goToNext 2024 failed', ex);
 	}
 
 	debugger;

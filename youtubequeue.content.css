@@ -10,7 +10,7 @@ body:not(.yt-queue-non-empty):not(.yt-queue-in-playlist) .ytp-next-button,
 	line-height: var(--yt-button-icon-size, 40px);
 	font-size: calc(var(--yt-button-icon-size, 40px) * 0.7);
 	text-align: center;
-	color: var(--yt-spec-icon-active-other, currentcolor);
+	color: #999;
 	background: transparent;
 	border: none;
 	padding: 0;
